@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LedgerX | Digital Wallet</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span class="logo-icon">L</span>
+            <h2>Ledger<span>X</span></h2>
+        </div>
+
+        <p class="nav-heading">MENU</p>
+
+        <nav>
+            <a href="#" class="nav-link active" data-section="dashboard">
+                <span>▦</span> Dashboard
+            </a>
+
+            <a href="#" class="nav-link" data-section="send">
+                <span>↗</span> Send Money
+            </a>
+
+            <a href="#" class="nav-link" data-section="deposit">
+                <span>＋</span> Deposit
+            </a>
+
+            <a href="#" class="nav-link" data-section="transactions">
+                <span>⇄</span> Transactions
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <p>RELIABLE PAYMENTS</p>
+            <span>LedgerX v1.0</span>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div>
+                <p class="welcome-text">WELCOME BACK</p>
+                <h2>Dashboard</h2>
+            </div>
+
+            <div class="profile">
+                <div class="profile-avatar">U</div>
+                <div>
+                    <strong>Wallet User</strong>
+                    <p>Personal Account</p>
+                </div>
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD SECTION -->
+        <section id="dashboard-section" class="page-section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>My Wallet</h2>
+                    <p>Overview of your digital wallet</p>
+                </div>
+
+                <select id="wallet-selector">
+                    <option value="">Select Wallet</option>
+                </select>
+            </div>
+
+
+            <!-- WALLET CARDS -->
+            <div class="wallet-grid">
+
+                <div class="wallet-card primary-card">
+                    <p>AVAILABLE BALANCE</p>
+                    <h1 id="wallet-balance">₹0.00</h1>
+                    <span id="wallet-currency">INR Wallet</span>
+                </div>
+
+                <div class="stat-card">
+                    <p>Total Sent</p>
+                    <h2 id="total-sent">₹0.00</h2>
+                    <span>Outgoing transfers</span>
+                </div>
+
+                <div class="stat-card">
+                    <p>Total Received</p>
+                    <h2 id="total-received">₹0.00</h2>
+                    <span>Incoming transfers</span>
+                </div>
+
+                <div class="stat-card">
+                    <p>Transactions</p>
+                    <h2 id="total-transactions">0</h2>
+                    <span>All-time activity</span>
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+            <div class="quick-actions">
+
+                <button class="action-button" data-section="send">
+                    ↗ Send Money
+                </button>
+
+                <button class="action-button secondary-action"
+                        data-section="deposit">
+                    ＋ Add Funds
+                </button>
+
+            </div>
+
+
+            <!-- CHARTS -->
+            <div class="charts-grid">
+
+                <div class="content-card">
+                    <h3>Transaction Activity</h3>
+                    <p>Money sent and received</p>
+                    <canvas id="transaction-chart"></canvas>
+                </div>
+
+                <div class="content-card">
+                    <h3>Transaction Overview</h3>
+                    <p>Distribution of transactions</p>
+                    <canvas id="distribution-chart"></canvas>
+                </div>
+
+            </div>
+
+
+            <!-- RECENT TRANSACTIONS -->
+            <div class="content-card transactions-card">
+
+                <div class="card-heading">
+                    <div>
+                        <h3>Recent Transactions</h3>
+                        <p>Your latest wallet activity</p>
+                    </div>
+
+                    <button class="text-button"
+                            data-section="transactions">
+                        View All →
+                    </button>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="recent-transactions">
+                            <tr>
+                                <td colspan="5">
+                                    Select a wallet to view transactions.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SEND MONEY SECTION -->
+        <section id="send-section" class="page-section hidden">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Send Money</h2>
+                    <p>Transfer funds to another wallet</p>
+                </div>
+            </div>
+
+            <div class="content-card form-card">
+
+                <h3>Transfer Details</h3>
+
+                <form id="transfer-form">
+
+                    <label for="sender-wallet">Your Wallet ID</label>
+                    <input type="number" id="sender-wallet"
+                           placeholder="Enter sender wallet ID"
+                           required min="1">
+
+                    <label for="receiver-wallet">Receiver Wallet ID</label>
+                    <input type="number" id="receiver-wallet"
+                           placeholder="Enter receiver wallet ID"
+                           required min="1">
+
+                    <label for="transfer-amount">Amount (INR)</label>
+                    <input type="number" id="transfer-amount"
+                           placeholder="Enter amount"
+                           required min="0.01" step="0.01">
+
+                    <button type="submit" class="submit-button">
+                        Send Money →
+                    </button>
+
+                </form>
+
+                <p id="transfer-message" class="form-message"></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- DEPOSIT SECTION -->
+        <section id="deposit-section" class="page-section hidden">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Add Funds</h2>
+                    <p>Add money to your wallet</p>
+                </div>
+            </div>
+
+            <div class="content-card form-card">
+
+                <h3>Deposit Details</h3>
+
+                <form id="deposit-form">
+
+                    <label for="deposit-wallet">Wallet ID</label>
+                    <input type="number" id="deposit-wallet"
+                           placeholder="Enter wallet ID"
+                           required min="1">
+
+                    <label for="deposit-amount">Amount (INR)</label>
+                    <input type="number" id="deposit-amount"
+                           placeholder="Enter amount"
+                           required min="0.01" step="0.01">
+
+                    <button type="submit" class="submit-button">
+                        Deposit Funds →
+                    </button>
+
+                </form>
+
+                <p id="deposit-message" class="form-message"></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ALL TRANSACTIONS SECTION -->
+        <section id="transactions-section"
+                 class="page-section hidden">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Transaction History</h2>
+                    <p>Review your wallet transactions</p>
+                </div>
+            </div>
+
+            <div class="content-card transactions-card">
+
+                <div class="table-wrapper">
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="all-transactions">
+                            <tr>
+                                <td colspan="4">
+                                    Select a wallet to view transactions.
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="footer">
+            LedgerX © 2026 | Reliability-focused payment processing
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
